@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -231,11 +232,24 @@ namespace Source.Editor
 
             private void OnDestroy()
             {
-                if (previewRenderUtility != null)
+                if (previewRenderUtility == null)
                 {
-                    previewRenderUtility.Cleanup();
-                    previewRenderUtility = null;
+                    return;
                 }
+                
+                previewRenderUtility.Cleanup();
+                previewRenderUtility = null;
+            }
+
+            private void OnDisable()
+            {
+                if (previewRenderUtility == null)
+                {
+                    return;
+                }
+                
+                previewRenderUtility.Cleanup();
+                previewRenderUtility = null;
             }
 
             #endregion
